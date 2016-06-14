@@ -22,7 +22,7 @@ int CTrain::train() {
   caffe::SolverParameter solver_param;
   caffe::ReadSolverParamsFromTextFileOrDie(m_solverfile, &solver_param);
   Caffe::set_mode(Caffe::CPU);
-  shared_ptr<caffe::Solver<float> >
+  caffe::shared_ptr<caffe::Solver<float> >
       solver(caffe::SolverRegistry<float>::CreateSolver(solver_param));
 
   if (m_snapshotfile.size()) {
