@@ -189,7 +189,7 @@ def count_jpg(src_dir):
 	return count #返回图像数目
 #end of count_jpg
 
-NNUM = 20 #每一类图像要处理的val类别的数目
+NNUM = 10 #每一类图像要处理的val类别的数目
 
 #在输入路径par_path下分割输入列表catelist中的图片,结果存放在dst_path路径下
 def crops(catelist, parent_path, dst_path):
@@ -220,21 +220,25 @@ def crops(catelist, parent_path, dst_path):
 			continue
 		filelist = os.listdir(cate_dir)
 		leng = count_jpg(cate_dir) #统计该类图片数目
-		NN = leng / 20 #从总的图片数目中分出20张用作测试图片
+		NN = leng / NNUM #从总的图片数目中分出20张用作测试图片
 		count = 0 #统计生成图片数目
 		num = 0 #统计处理图片数目
 		val_num = 0
  		for filename in filelist: #遍历每一类所有的图片
 			if os.path.splitext(filename)[1] == '.jpg' or os.path.splitext(filename)[1] == '.JPG':
 				#如果该文件名为jpg或JPG格式图像，则读取
-				imgorg = cv2.imread(os.path.join(cate_dir, filename))
+				img = cv2.imread(os.path.join(cate_dir, filename))
+                                height,width=img.shape[:2]
+                                left=(width-height)/2
+                                right=(widht+height)/2
+                                imgorg=img[0:height,left:right]
 			else:
 				continue
 			if imgorg == None: #读取不成功
 				print os.path.join(cate_dir, filename),"is None"
 				continue
 			#每一类图片每隔NN张用作val，其他用作training 
-			if num % NN == 0 and val_num < 20:
+			if num % NN == 0 and val_num < NNUM:
 				val_num = val_num + 1
 				dst_dir = cate_val
 				#根据亮度分割图像
@@ -244,8 +248,8 @@ def crops(catelist, parent_path, dst_path):
 				scaledImage(imgorg, dst_dir, cate, count)
 				count = count + 3
 				#按边长分割图像
-				crop_sides(imgorg, dst_dir, cate, count)
-				count = count + 4
+				# crop_sides(imgorg, dst_dir, cate, count)
+				# count = count + 4
 				#旋转图像
 				rotateImage(imgorg, dst_dir, cate, count)
 				count = count + 6
@@ -264,16 +268,16 @@ def crops(catelist, parent_path, dst_path):
 				scaledImage(imgorg, dst_dir, cate, count)
 				count = count + 3
 				#按边长分割图像
-				crop_sides(imgorg, dst_dir, cate, count)
-				count = count + 4
+				# crop_sides(imgorg, dst_dir, cate, count)
+				# count = count + 4
 				#旋转图像
 				rotateImage(imgorg, dst_dir, cate, count)
 				count = count + 6
 				#左右翻转图像
-				imgflip = cv2.flip(imgorg, 1)
+				 imgflip = cv2.flip(imgorg, 1)
 				#旋转图像
-				rotateImage(imgflip, dst_dir, cate, count)
-				count = count + 6
+				 rotateImage(imgflip, dst_dir, cate, count)
+				 count = count + 6
 			num = num + 1
 		num_filelist = num_filelist + 1
 		if num_filelist % 3 == 0:
