@@ -20,6 +20,7 @@ LIBS=/usr/lib/x86_64-linux-gnu/libopencv_*.so\
 /usr/lib/x86_64-linux-gnu/libglog.so\
 /home/joyoung/caffe-master/build/lib/libcaffe.so\
 
+
 HEADERS += \
     classifier.h \
     ctrain.h
