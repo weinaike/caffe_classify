@@ -13,13 +13,12 @@ SOURCES += main.cpp \
 INCLUDEPATH=/usr/include/\
 /usr/include/opencv\
 /usr/include/opencv2\
-/home/wnk/caffe-master/include/\
-
+/home/joyoung/caffe-master/include\
 
 LIBS=/usr/lib/x86_64-linux-gnu/libopencv_*.so\
 /usr/lib/x86_64-linux-gnu/libboost_*.so\
-/usr/local/lib/libglog.so.0\
-/home/wnk/caffe-master/build/lib/libcaffe.so\
+/usr/lib/x86_64-linux-gnu/libglog.so\
+/home/joyoung/caffe-master/build/lib/libcaffe.so\
 
 HEADERS += \
     classifier.h \

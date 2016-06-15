@@ -3,18 +3,18 @@
 #include <classifier.h>
 #include <ctrain.h>
 #include <gflags/gflags.h>
-#include <glog/logging.h>
+//#include <glog/logging.h>
 #include <string>
 using namespace cv;
 using namespace std;
 void class_one()
 {
-    string model_file="/home/wnk/caffe-master/models/bvlc_reference_caffenet/deploy.prototxt";
-    string mean_file="/home/wnk/caffe-master/data/ilsvrc12/imagenet_mean.binaryproto";
-    string trained_file="/home/wnk/caffe-master/models/bvlc_reference_caffenet/bvlc_reference_caffenet.caffemodel";
-    string label_file="/home/wnk/caffe-master/data/ilsvrc12/synset_words.txt";
+    string model_file="/home/joyoung/qtwork/caffe_classify/demo/deploy.prototxt";
+    string mean_file="/home/joyoung/qtwork/caffe_classify/demo/mean.binaryproto";
+    string trained_file="/home/joyoung/qtwork/caffe_classify/demo/snapshot_iter_980.caffemodel";
+    string label_file="/home/joyoung/qtwork/caffe_classify/demo/labels.txt";
     Classifier classifier(model_file, trained_file, mean_file, label_file);
-    //Mat src=imread("/home/wnk/caffe-master/examples/images/cat.jpg");
+    //Mat src=imread("/home/joyoung/caffe-master/examples/images/cat.jpg");
     VideoCapture cap;
     cap.open(0);
     Mat src;
@@ -28,7 +28,7 @@ void class_one()
                     << p.first << "\"" << std::endl;
         }
         imshow("test",src);
-        waitKey(300);
+        waitKey(10);
     }
 
 }

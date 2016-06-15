@@ -1,5 +1,5 @@
 #include "ctrain.h"
-#include <memory>
+
 CTrain::CTrain(string solverfile,string weightfile, string snapshotfile)
 {
     m_solverfile=solverfile;
@@ -22,8 +22,7 @@ int CTrain::train() {
   caffe::SolverParameter solver_param;
   caffe::ReadSolverParamsFromTextFileOrDie(m_solverfile, &solver_param);
   Caffe::set_mode(Caffe::CPU);
-  shared_ptr<caffe::Solver<float> >
-      solver(caffe::SolverRegistry<float>::CreateSolver(solver_param));
+  caffe::shared_ptr<caffe::Solver<float>> solver(caffe::SolverRegistry<float>::CreateSolver(solver_param));
 
   if (m_snapshotfile.size()) {
     LOG(INFO) << "Resuming from " << m_snapshotfile;
