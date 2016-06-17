@@ -304,7 +304,7 @@ if __name__ == '__main__':
 	leng = len(catelist)
 	print "总的类别数目为%d"%leng #输出
 	#将类别均等分为12份
-	N = 1
+	N = 6
 	cate_list = []
 	for i in range(N):
 		cate_list.append([])
@@ -317,7 +317,7 @@ if __name__ == '__main__':
 		print "************8"	
 	'''
 	#进行多进程操作
-	parent_path = "/home/joyoung/digits/data/beanmilk"
+	parent_path = "/home/joyoung/digits/data/class5"
 	dst_path = os.path.join(os.getcwd())
 	'''
 	p = Pool()
@@ -330,10 +330,10 @@ if __name__ == '__main__':
 	print 'All subprocesses done.'
 	'''
 	for i in range(N):
-		#p = Process(target=crops, args=(cate_list[i], parent_path, dst_path,))
+		p = Process(target=crops, args=(cate_list[i], parent_path, dst_path,))
 		print '%d进程开始'%(i)
-		#p.start()
-                crops(cate_list[i],parent_path,dst_path)
+		p.start()
+                #crops(cate_list[i],parent_path,dst_path)
 		#p.join()
 		print '%d进程结束'%(i)
 	print '结束'

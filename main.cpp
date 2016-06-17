@@ -3,14 +3,14 @@
 #include <classifier.h>
 #include <ctrain.h>
 #include <gflags/gflags.h>
-//#include <glog/logging.h>
 #include <string>
+#include <cdirfile.h>
 using namespace cv;
 using namespace std;
 void prep_treat(Mat & src,Mat & dst);
 void class_one()
 {
-    string path="/home/joyoung/qtwork/caffe_classify/demo-google/";
+    string path="/home/joyoung/qtwork/caffe_classify/demo-class5-google/";
     string model_file=path+"deploy.prototxt";
     string mean_file=path+"mean.binaryproto";
     string trained_file=path+"snapshot_iter.caffemodel";
@@ -27,19 +27,6 @@ void class_one()
     {
         double t=(double)getTickCount();
         cap>>src;
-        /*
-        for(int i=0;i<10;i++)
-        {
-            cap>>src_org;
-            src_org.convertTo(dst_org,CV_32FC3,1.0/255.0);
-            if(i==0)
-            {
-                mean=dst_org/10;
-            }
-            mean+=dst_org/10;
-        }
-        mean.convertTo(src,CV_8UC3,255.0);
-        */
         prep_treat(src,dst);
         std::vector<Prediction> predictions = classifier.Classify(dst,1);
         t=((double)getTickCount()-t)/getTickFrequency();
@@ -80,11 +67,48 @@ void train_test()
     cifar_train.train();
 
 }
+void class_many()
+{
+    string path="/home/joyoung/qtwork/caffe_classify/demo-class5-google/";
+    string model_file=path+"deploy.prototxt";
+    string mean_file=path+"mean.binaryproto";
+    string trained_file=path+"snapshot_iter.caffemodel";
+    string label_file=path+"labels.txt";
+    Classifier classifier(model_file, trained_file, mean_file, label_file);
+
+    char *to_search="/home/joyoung/digits/data/class5-dealed/val/dami/";
+    CDirfile dirfile(to_search);
+    string filename;
+
+    Mat src,dst;
+    while(1)
+    {
+        filename=dirfile.getContent();
+        if(filename.length()==0) break;
+        src=imread(filename.c_str());
+        cout << filename << endl;
+        double t=(double)getTickCount();
+        prep_treat(src,dst);
+        std::vector<Prediction> predictions = classifier.Classify(dst,1);
+        t=((double)getTickCount()-t)/getTickFrequency();
+        Prediction p;
+        for (size_t i = 0; i < predictions.size(); ++i) {
+          p = predictions[i];
+          std::cout << std::fixed << std::setprecision(4) << p.second << " - \""
+                    << p.first << "\"" <<"     time: "<<t<<"s"<<std::endl;
+        }
+        putText(dst,p.first,Point(20,30),FONT_HERSHEY_SIMPLEX,1,Scalar(255,255,255),2);
+        imshow("bean",dst);
+        waitKey(0);
+    }
+
+}
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    class_one();
+    //class_one();
+    class_many();
     //train_test();
     return a.exec();
 }

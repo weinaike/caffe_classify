@@ -9,7 +9,8 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     classifier.cpp \
-    ctrain.cpp
+    ctrain.cpp \
+    cdirfile.cpp
 INCLUDEPATH=/usr/include/\
 /usr/include/opencv\
 /usr/include/opencv2\
@@ -23,5 +24,6 @@ LIBS=/usr/lib/x86_64-linux-gnu/libopencv_*.so\
 
 HEADERS += \
     classifier.h \
-    ctrain.h
+    ctrain.h \
+    cdirfile.h
 
