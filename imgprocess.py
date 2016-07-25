@@ -123,7 +123,7 @@ def cropImage(img, dstPath, clas, num): #参数为待缩放图像，目的路径
 
 #此函数用于调整图像亮度，取图像img亮度的80%,90%,110%,120%共4个
 def change_luminance(img, dstPath, clas, num):
-	brightlist = [9, 9.5, 10,10.5, 11]
+	brightlist = [9.5, 10,10.5]
 	for bright in brightlist:
 		luminImg = cv2.addWeighted(img, bright*0.1, img, 0.0, 0)
 		#resize image
@@ -135,7 +135,7 @@ def change_luminance(img, dstPath, clas, num):
 
 #生成用于val部分的图像，取图像亮度的80%,120%共2个
 def change_luminance_val(img, dstPath, clas, num):
-	brightlist = [9.5, 10.5]
+	brightlist = [10]
 	for bright in brightlist:
 		luminImg = cv2.addWeighted(img, bright*0.1, img, 0.0, 0)
 		#resize image
@@ -189,7 +189,7 @@ def count_jpg(src_dir):
 	return count #返回图像数目
 #end of count_jpg
 
-NNUM = 10 #每一类图像要处理的val类别的数目
+NNUM =30  #每一类图像要处理的val类别的数目
 
 #在输入路径par_path下分割输入列表catelist中的图片,结果存放在dst_path路径下
 def crops(catelist, parent_path, dst_path):
@@ -252,19 +252,19 @@ def crops(catelist, parent_path, dst_path):
 				change_luminance(imgorg, dst_dir, cate, count)
 				count = count + 4
 				#根据缩放比例分割图像
-				scaledImage(imgorg, dst_dir, cate, count)
-				count = count + 3
+				#scaledImage(imgorg, dst_dir, cate, count)
+				#count = count + 3
 				#按边长分割图像
 				# crop_sides(imgorg, dst_dir, cate, count)
 				# count = count + 4
 				#旋转图像
-				rotateImage(imgorg, dst_dir, cate, count)
-				count = count + 6
+				#rotateImage(imgorg, dst_dir, cate, count)
+				#count = count + 6
 				#左右翻转图像
-				imgflip = cv2.flip(imgorg, 1)
+				#imgflip = cv2.flip(imgorg, 1)
 				#旋转图像
-				rotateImage(imgflip, dst_dir, cate, count)
-				count = count + 6
+				#rotateImage(imgflip, dst_dir, cate, count)
+				#count = count + 6
 			else: #用作val功能的图像
 				#用作training功能的图像一张分割为23张
 				dst_dir = cate_train
@@ -272,19 +272,19 @@ def crops(catelist, parent_path, dst_path):
 				change_luminance(imgorg, dst_dir, cate, count)
 				count = count + 4
 				#根据缩放比例分割图像
-				scaledImage(imgorg, dst_dir, cate, count)
-				count = count + 3
+				#scaledImage(imgorg, dst_dir, cate, count)
+				#count = count + 3
 				#按边长分割图像
 				# crop_sides(imgorg, dst_dir, cate, count)
 				# count = count + 4
 				#旋转图像
-				rotateImage(imgorg, dst_dir, cate, count)
-				count = count + 6
+				#rotateImage(imgorg, dst_dir, cate, count)
+				#count = count + 6
 				#左右翻转图像
-				imgflip = cv2.flip(imgorg, 1)
+				#imgflip = cv2.flip(imgorg, 1)
 				#旋转图像
-				rotateImage(imgflip, dst_dir, cate, count)
-				count = count + 6
+				#rotateImage(imgflip, dst_dir, cate, count)
+				#count = count + 6
 			num = num + 1
 		num_filelist = num_filelist + 1
 		if num_filelist % 3 == 0:
@@ -317,7 +317,7 @@ if __name__ == '__main__':
 		print "************8"	
 	'''
 	#进行多进程操作
-	parent_path = "/home/joyoung/digits/data/class5"
+	parent_path = "/home/joyoung/digits/data/soymilk_one"
 	dst_path = os.path.join(os.getcwd())
 	'''
 	p = Pool()
