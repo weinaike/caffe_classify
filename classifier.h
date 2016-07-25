@@ -1,6 +1,6 @@
 #ifndef CLASSIFIER_H
 #define CLASSIFIER_H
-#define CPU_ONLY
+//#define CPU_ONLY
 #include <caffe/caffe.hpp>
 #include <opencv.hpp>
 #include <vector>

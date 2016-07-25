@@ -1,6 +1,6 @@
 #ifndef CTRAIN_H
 #define CTRAIN_H
-#define CPU_ONLY
+//#define CPU_ONLY
 #include <string>
 #include <caffe/caffe.hpp>
 #include "boost/algorithm/string.hpp"

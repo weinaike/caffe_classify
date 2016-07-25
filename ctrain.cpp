@@ -42,10 +42,10 @@ int CTrain::train() {
 void CTrain::CopyLayers(caffe::Solver<float>* solver, const std::string& model_list) {
   std::vector<std::string> model_names;
   boost::split(model_names, model_list, boost::is_any_of(",") );
-  for (int i = 0; i < model_names.size(); ++i) {
+  for (unsigned i = 0; i < model_names.size(); ++i) {
     LOG(INFO) << "Finetuning from " << model_names[i];
     solver->net()->CopyTrainedLayersFrom(model_names[i]);
-    for (int j = 0; j < solver->test_nets().size(); ++j) {
+    for (unsigned j = 0; j < solver->test_nets().size(); ++j) {
       solver->test_nets()[j]->CopyTrainedLayersFrom(model_names[i]);
     }
   }

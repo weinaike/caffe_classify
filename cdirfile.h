@@ -23,7 +23,6 @@ public:
     //得到目录dir下的filetype类型文件或dir下的目录的列表
     vector<string> getall(string filetype="", int fileOrDir=FILE);
     //对得到得到的返回列表进行排序的函数，实则为比较两个字符串大小
-
     //把一个string字符串中的小写字符转换成大写
     string toUpper(string& str);
 private:
