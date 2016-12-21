@@ -317,7 +317,7 @@ if __name__ == '__main__':
 		print "************8"	
 	'''
 	#进行多进程操作
-	parent_path = "/home/joyoung/digits/data/soymilk_one"
+	parent_path = "/home/joyoung/digits/data/soymilk10_dealed"
 	dst_path = os.path.join(os.getcwd())
 	'''
 	p = Pool()

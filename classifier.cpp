@@ -63,6 +63,7 @@ void Classifier::SetMean(const string& mean_file)
     /* Compute the global mean pixel value and create a mean image
      * filled with this value. */
     cv::Scalar channel_mean = cv::mean(mean);
+
     mean_ = cv::Mat(input_geometry_, mean.type(), channel_mean);
 
 }
